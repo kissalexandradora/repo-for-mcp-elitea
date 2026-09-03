@@ -1,0 +1,17 @@
+{
+  "name": "epam-playwright-tests",
+  "version": "1.0.0",
+  "description": "Playwright TypeScript tests for EPAM website",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "lint": "eslint . --ext .ts",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}
