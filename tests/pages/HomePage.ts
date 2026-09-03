@@ -10,7 +10,11 @@ import { type Page, type Locator } from '@playwright/test';
 export class HomePage {
   readonly page: Page;
 
-  /** "Services" toggle button inside the main navigation */
+  /** "Services" toggle button inside the main navigation.
+   *
+   * The element is a `div[role="button"]` (not a native `<button>`), so we
+   * use the CSS class + aria-label selector which is stable across builds.
+   */
   readonly servicesNavButton: Locator;
 
   /** "Explore Our Client Work" link in the hero section */
@@ -19,9 +23,9 @@ export class HomePage {
   constructor(page: Page) {
     this.page = page;
 
-    this.servicesNavButton = page.locator(
-      'nav[aria-label="Main navigation"] button[aria-label="Services"]',
-    );
+    // The Services toggle is a div with role="button" – Playwright's getByRole
+    // respects ARIA roles, so this resolves correctly.
+    this.servicesNavButton = page.getByRole('button', { name: 'Services' });
 
     // The link text is exactly "Explore Our Client Work" and lives inside the
     // hero slider.  We target the first visible occurrence.
